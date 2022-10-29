@@ -47,4 +47,14 @@ btn_cancel.innerText = 'Annuler'
 btn_cancel.id = "btn_cancel"
 div_form.append(btn_cancel)
 // Return in first page on click
-btn_cancel.addEventListener('click', function (btn_cancel_click) {window.location = "../index.html"})
+btn_cancel.addEventListener('click', function (btn_cancel_click) {window.location = "../Pochlib/index.html"})
+
+// Display div_form on click
+function btn_add_click() {
+	if (div_form.style.display == 'none') {
+		div_form.style.display = 'flex'
+	}
+}
+
+// Insert div_form before content
+myBooks.insertBefore(div_form, content)
