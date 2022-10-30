@@ -63,9 +63,14 @@ btn_search.addEventListener('click', function (e) {
 	e.preventDefault();
 	try {
 	if (input_title.value != 0 && input_author.value != 0) {
+		const result = document.createElement('h2')
+		result.className = 'result'
+		result.innerText = 'Résultats de recherche'
+		div_form.appendChild(result)
 		let title = input_title.value
 		let author = input_author.value
 		let api = `https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${author}`
+
 		fetch(api)
 			.then(res => res.json())
 			.then(res => 
@@ -74,14 +79,13 @@ btn_search.addEventListener('click', function (e) {
 					alert("Aucun résultat");
 				} else {
 					 res.items.map(book => {
-						let titre = book.volumeInfo.title
+						let bookName = book.volumeInfo.title
 						let id = book.id
 						let author = (book.volumeInfo?.authors == null || book.volumeInfo?.authors == undefined ? 'Information manquante' : book.volumeInfo?.authors[0])
 						let description = (book.volumeInfo?.description == null || book.volumeInfo?.description == undefined ? 'Information manquante': book.volumeInfo?.description.substring(0,200)) 
 						let image = (book.volumeInfo?.imageLinks?.thumbnail == null || book.volumeInfo?.imageLinks?.thumbnail == undefined ? 'images/unavailable.png': book.volumeInfo?.imageLinks?.thumbnail)
-						displayBook(titre, id, author, description, image)
-					})
-					
+						displayBook(bookName, id, author, description, image)
+					})				
 				}
 			})
 	} else {
@@ -95,8 +99,6 @@ btn_search.addEventListener('click', function (e) {
 // Display search result
 function displayBook(Title, Id, Author, Description, Image) {
 	const container = document.createElement('div')
-	const result = document.createElement('h2')
-	result.innerText = 'Résultats de recherche'
 	const bookTitle = document.createElement('h3')
 	const bookAuthor = document.createElement('h3')
 	const bookId = document.createElement('h3')
@@ -107,7 +109,7 @@ function displayBook(Title, Id, Author, Description, Image) {
 	bookId.innerText = 'Id : ' + Id
 	bookAuthor.innerText = 'Auteur : ' + Author
 	bookDescription.innerText = 'Description : ' + Description
-	bookTitle.classList = 'title'
+	bookTitle.classList = 'bookTitle'
 	bookId.classList = 'id'
 	bookAuthor.classList = 'author'
 	bookDescription.classList = 'description'
@@ -118,15 +120,8 @@ function displayBook(Title, Id, Author, Description, Image) {
 	bookImage.height = 100;
 	bookIcon.width = 30
 	bookIcon.height = 30
-	bookIcon.id="icone"
-	bookIcon.classList.add('unsaved')
-	bookIcon.addEventListener("click", save_book);  
-	div_form.appendChild(result)
-	const div_title = document.createElement('div')
-	div_title.classList.add('div_title')
-	div_title.append(bookTitle)
-	div_title.append(bookIcon)
-	container.appendChild(div_title)
+	bookIcon.id= 'icon'
+	container.appendChild(bookTitle)
 	container.appendChild(bookAuthor)
 	container.appendChild(bookId)
 	container.appendChild(bookDescription)
