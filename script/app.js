@@ -40,7 +40,6 @@ btn_search.innerText = 'Rechercher'
 btn_search.id = "btn_search"
 div_form.append(btn_search)
 
-
 // Create btn_cancel
 const btn_cancel = document.createElement('button')
 btn_cancel.innerText = 'Annuler'
@@ -58,3 +57,80 @@ function btn_add_click() {
 
 // Insert div_form before content
 myBooks.insertBefore(div_form, content)
+
+// Retrieve information from the API
+btn_search.addEventListener('click', function (e) {
+	e.preventDefault();
+	try {
+	if (input_title.value != 0 && input_author.value != 0) {
+		let title = input_title.value
+		let author = input_author.value
+		let api = `https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${author}`
+		fetch(api)
+			.then(res => res.json())
+			.then(res => 
+			{
+				if (res.totalItems == 0) {
+					alert("Aucun résultat");
+				} else {
+					 res.items.map(book => {
+						let titre = book.volumeInfo.title
+						let id = book.id
+						let author = (book.volumeInfo?.authors == null || book.volumeInfo?.authors == undefined ? 'Information manquante' : book.volumeInfo?.authors[0])
+						let description = (book.volumeInfo?.description == null || book.volumeInfo?.description == undefined ? 'Information manquante': book.volumeInfo?.description.substring(0,200)) 
+						let image = (book.volumeInfo?.imageLinks?.thumbnail == null || book.volumeInfo?.imageLinks?.thumbnail == undefined ? 'images/unavailable.png': book.volumeInfo?.imageLinks?.thumbnail)
+						displayBook(titre, id, author, description, image)
+					})
+					
+				}
+			})
+	} else {
+		alert("Veuillez renseigner tous les champs")
+	}
+	} catch (error){
+		console.error("erreur :" + error);
+	}
+})
+
+// Display search result
+function displayBook(Title, Id, Author, Description, Image) {
+	const container = document.createElement('div')
+	const result = document.createElement('h2')
+	result.innerText = 'Résultats de recherche'
+	const bookTitle = document.createElement('h3')
+	const bookAuthor = document.createElement('h3')
+	const bookId = document.createElement('h3')
+	const bookDescription = document.createElement('p')
+	const bookImage = document.createElement('img')
+	const bookIcon = document.createElement('img')
+	bookTitle.innerText = 'Titre : ' + Title
+	bookId.innerText = 'Id : ' + Id
+	bookAuthor.innerText = 'Auteur : ' + Author
+	bookDescription.innerText = 'Description : ' + Description
+	bookTitle.classList = 'title'
+	bookId.classList = 'id'
+	bookAuthor.classList = 'author'
+	bookDescription.classList = 'description'
+	bookImage.classList = 'image'
+	bookImage.src = Image
+	bookImage.alt = Title
+	bookImage.width = 50;
+	bookImage.height = 100;
+	bookIcon.width = 30
+	bookIcon.height = 30
+	bookIcon.id="icone"
+	bookIcon.classList.add('unsaved')
+	bookIcon.addEventListener("click", save_book);  
+	div_form.appendChild(result)
+	const div_title = document.createElement('div')
+	div_title.classList.add('div_title')
+	div_title.append(bookTitle)
+	div_title.append(bookIcon)
+	container.appendChild(div_title)
+	container.appendChild(bookAuthor)
+	container.appendChild(bookId)
+	container.appendChild(bookDescription)
+	container.appendChild(bookImage)
+	container.classList = 'book'
+	myBooks.insertBefore(container, content)
+}
