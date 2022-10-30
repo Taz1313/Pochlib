@@ -116,11 +116,14 @@ function displayBook(Title, Id, Author, Description, Image) {
 	bookImage.classList = 'image'
 	bookImage.src = Image
 	bookImage.alt = Title
-	bookImage.width = 50;
-	bookImage.height = 100;
+	bookImage.width = 50
+	bookImage.height = 100
+	bookIcon.src = './images/bookmark.png'
 	bookIcon.width = 30
 	bookIcon.height = 30
 	bookIcon.id= 'icon'
+	bookIcon.addEventListener("click", saveBook)
+	container.appendChild(bookIcon)
 	container.appendChild(bookTitle)
 	container.appendChild(bookAuthor)
 	container.appendChild(bookId)
@@ -128,4 +131,15 @@ function displayBook(Title, Id, Author, Description, Image) {
 	container.appendChild(bookImage)
 	container.classList = 'book'
 	myBooks.insertBefore(container, content)
+}
+
+function saveBook(e){
+	let title = e.target.parentElement.getElementsByClassName('bookTitle')[0].innerText.substring(7)
+	let id = e.target.parentElement.getElementsByClassName('id')[0].innerText.substring(4)
+
+	if (sessionStorage.getItem(id)) {
+		alert('Vous ne pouvez pas ajouter deux fois le même livre')
+	} else {
+		sessionStorage.setItem(title, id)
+	}
 }
