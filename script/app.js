@@ -49,16 +49,6 @@ div_form.append(btn_cancel)
 // Return in first page on click
 btn_cancel.addEventListener('click', function (btn_cancel_click) {window.location = "../Pochlib/index.html"})
 
-// Result container
-const container_result_search = document.createElement('div')
-container_result_search.id = 'container_result_search'
-div_form.appendChild(container_result_search)
-
-// Poch'liste container
-const container_poch_list = document.createElement('div')
-container_poch_list.id = 'container_poch_list'
-content.appendChild(container_poch_list)
-
 // Display div_form on click
 function btn_add_click() {
 	if (div_form.style.display == 'none') {
@@ -95,7 +85,7 @@ btn_search.addEventListener('click', function (e) {
 						let bookName = book.volumeInfo.title
 						let id = book.id
 						let author = (book.volumeInfo?.authors == null || book.volumeInfo?.authors == undefined ? 'Information manquante' : book.volumeInfo?.authors[0])
-						let description = (book.volumeInfo?.description == null || book.volumeInfo?.description == undefined ? 'Information manquante': book.volumeInfo?.description.substring(0,200)) 
+						let description = (book.volumeInfo?.description == null || book.volumeInfo?.description == undefined ? 'Information manquante': book.volumeInfo?.description.substring(0,200) + '...') 
 						let image = (book.volumeInfo?.imageLinks?.thumbnail == null || book.volumeInfo?.imageLinks?.thumbnail == undefined ? 'images/unavailable.png': book.volumeInfo?.imageLinks?.thumbnail)
 						displayBook(bookName, id, author, description, image)
 					})				
@@ -108,6 +98,11 @@ btn_search.addEventListener('click', function (e) {
 		console.error("erreur :" + error);
 	}
 })
+
+// Result container
+const container_result_search = document.createElement('div')
+container_result_search.id = 'container_result_search'
+div_form.after(container_result_search)
 
 // Display search result
 function displayBook(Title, Id, Author, Description, Image) {
@@ -131,12 +126,11 @@ function displayBook(Title, Id, Author, Description, Image) {
 	bookImage.classList = 'image'
 	bookImage.src = Image
 	bookImage.alt = Title
-	bookImage.width = 50
-	bookImage.height = 100
 	bookIcon.src = './images/bookmark.png'
 	bookIcon.width = 30
 	bookIcon.height = 30
 	bookIcon.id= 'icon'
+	bookIcon.classList= 'icon'
 
 	bookIcon.addEventListener("click", saveBook)
 
@@ -149,8 +143,15 @@ function displayBook(Title, Id, Author, Description, Image) {
 	container.classList = 'book'
 	myBooks.insertBefore(container, content)
 
+	container_result_search.appendChild(container)
+
 	bookIcon.onclick = function() { saveBook(Id, Title, Author, Description, Image) }
 }
+
+// Poch'liste container
+const container_poch_list = document.createElement('div')
+container_poch_list.id = 'container_poch_list'
+content.after(container_poch_list)
 
 // Display saved book
 function displayBookPoshListDiv(Title, Id, Author, Description, Image) {
@@ -184,7 +185,7 @@ function displayBookPoshListDiv(Title, Id, Author, Description, Image) {
 	bookIcon.width = 30
 	bookIcon.height = 30
 	bookIcon.id= Id
-	bookIcon.classList="bookmark"
+	bookIcon.classList= 'icon'
 
 	bookIcon.onclick = function() {deleteBook(Id)}
 
@@ -195,7 +196,8 @@ function displayBookPoshListDiv(Title, Id, Author, Description, Image) {
 	container.appendChild(bookDescription)
 	container.appendChild(div)
 	container.classList = 'book'
-	document.getElementById('container_poch_list').appendChild(container)
+
+	container_poch_list.appendChild(container)
 }
 
 // Display book on poch'list
