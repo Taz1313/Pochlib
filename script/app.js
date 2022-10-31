@@ -152,7 +152,7 @@ function displayBook(Title, Id, Author, Description, Image) {
 	bookIcon.onclick = function() { saveBook(Id, Title, Author, Description, Image) }
 }
 
-// Display poch'liste
+// Display saved book
 function displayBookPoshListDiv(Title, Id, Author, Description, Image) {
 
 	const div = document.createElement('div')
@@ -198,6 +198,7 @@ function displayBookPoshListDiv(Title, Id, Author, Description, Image) {
 	document.getElementById('container_poch_list').appendChild(container)
 }
 
+// Display book on poch'list
 function displayBookPochList () {
 	document.getElementById ('container_poch_list').innerHTML=''
 	let storedArray = JSON.parse(sessionStorage.getItem("books"))
@@ -214,22 +215,22 @@ function displayBookPochList () {
 
 // Save book
 function saveBook(Id, Title, Author, Description, Img){
-		let storedArray = JSON.parse(sessionStorage.getItem("books"))
-		if (storedArray.some(item => item.Id === Id)) {
-			alert("Vous ne pouvez pas ajouter deux fois le même livre.")
-		} else {
-			let item =  {
-				Title: Title,
-				Id: Id,
-				Author: Author,
-				Description: Description,
-				Image: Img
-			}
-
-			storedArray.push(item)
-			sessionStorage.setItem("books", JSON.stringify(storedArray))
-			displayBookPochList()
+	let storedArray = JSON.parse(sessionStorage.getItem("books"))
+	if (storedArray.some(item => item.Id === Id)) {
+		alert("Vous ne pouvez pas ajouter deux fois le même livre.")
+	} else {
+		let item =  {
+			Title: Title,
+			Id: Id,
+			Author: Author,
+			Description: Description,
+			Image: Img
 		}
+
+		storedArray.push(item)
+		sessionStorage.setItem("books", JSON.stringify(storedArray))
+		displayBookPochList()
+	}
 }
 
 
