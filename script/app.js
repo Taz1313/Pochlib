@@ -5,6 +5,7 @@ const h1 = document.getElementsByClassName('title')[0]
 const h2 = document.getElementsByClassName('h2')[0]
 const hr = document.getElementsByTagName('hr')[0]
 const content = document.getElementById('content')
+let storedArray = []
 
 // Create btn_add
 const btn_add = document.createElement('button')
@@ -48,6 +49,16 @@ div_form.append(btn_cancel)
 // Return in first page on click
 btn_cancel.addEventListener('click', function (btn_cancel_click) {window.location = "../Pochlib/index.html"})
 
+// Result container
+const container_result_search = document.createElement('div')
+container_result_search.id = 'container_result_search'
+div_form.appendChild(container_result_search)
+
+// Poch'liste container
+const container_poch_list = document.createElement('div')
+container_poch_list.id = 'container_poch_list'
+content.appendChild(container_poch_list)
+
 // Display div_form on click
 function btn_add_click() {
 	if (div_form.style.display == 'none') {
@@ -63,10 +74,12 @@ btn_search.addEventListener('click', function (e) {
 	e.preventDefault();
 	try {
 	if (input_title.value != 0 && input_author.value != 0) {
+
 		const result = document.createElement('h2')
 		result.className = 'result'
 		result.innerText = 'Résultats de recherche'
 		div_form.appendChild(result)
+
 		let title = input_title.value
 		let author = input_author.value
 		let api = `https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${author}`
@@ -98,6 +111,7 @@ btn_search.addEventListener('click', function (e) {
 
 // Display search result
 function displayBook(Title, Id, Author, Description, Image) {
+
 	const container = document.createElement('div')
 	const bookTitle = document.createElement('h3')
 	const bookAuthor = document.createElement('h3')
@@ -105,6 +119,7 @@ function displayBook(Title, Id, Author, Description, Image) {
 	const bookDescription = document.createElement('p')
 	const bookImage = document.createElement('img')
 	const bookIcon = document.createElement('img')
+
 	bookTitle.innerText = 'Titre : ' + Title
 	bookId.innerText = 'Id : ' + Id
 	bookAuthor.innerText = 'Auteur : ' + Author
@@ -122,7 +137,9 @@ function displayBook(Title, Id, Author, Description, Image) {
 	bookIcon.width = 30
 	bookIcon.height = 30
 	bookIcon.id= 'icon'
+
 	bookIcon.addEventListener("click", saveBook)
+
 	container.appendChild(bookIcon)
 	container.appendChild(bookTitle)
 	container.appendChild(bookAuthor)
@@ -131,15 +148,113 @@ function displayBook(Title, Id, Author, Description, Image) {
 	container.appendChild(bookImage)
 	container.classList = 'book'
 	myBooks.insertBefore(container, content)
+
+	bookIcon.onclick = function() { saveBook(Id, Title, Author, Description, Image) }
 }
 
-function saveBook(e){
-	let title = e.target.parentElement.getElementsByClassName('bookTitle')[0].innerText.substring(7)
-	let id = e.target.parentElement.getElementsByClassName('id')[0].innerText.substring(4)
+// Display poch'liste
+function displayBookPoshListDiv(Title, Id, Author, Description, Image) {
 
-	if (sessionStorage.getItem(id)) {
-		alert('Vous ne pouvez pas ajouter deux fois le même livre')
+	const div = document.createElement('div')
+	const container = document.createElement('div')
+	const bookTitle = document.createElement('h3')
+	const bookAuthor = document.createElement('h3')
+	const bookId = document.createElement('h3')
+	const bookDescription = document.createElement('p')
+	const bookImage = document.createElement('img')
+	const bookIcon = document.createElement('img')
+
+	bookTitle.innerText = 'Titre : ' + Title
+	bookId.innerText = 'Id : ' + Id
+	bookAuthor.innerText = 'Auteur : ' + Author
+	bookDescription.innerText = 'Description : ' + Description
+	bookTitle.classList = 'bookTitle'
+	bookId.classList = 'id'
+	bookAuthor.classList = 'author'
+	bookDescription.classList = 'description'
+	div.classList = 'text-center'
+	bookImage.classList = 'image'
+	bookImage.src = Image
+	bookImage.alt = Title
+	bookImage.width = 50
+	bookImage.height = 100
+
+	div.appendChild(bookImage)
+	bookIcon.src = './images/trash.png'
+	bookIcon.width = 30
+	bookIcon.height = 30
+	bookIcon.id= Id
+	bookIcon.classList="bookmark"
+
+	bookIcon.onclick = function() {deleteBook(Id)}
+
+	container.appendChild(bookIcon)
+	container.appendChild(bookTitle)
+	container.appendChild(bookAuthor)
+	container.appendChild(bookId)
+	container.appendChild(bookDescription)
+	container.appendChild(div)
+	container.classList = 'book'
+	document.getElementById('container_poch_list').appendChild(container)
+}
+
+function displayBookPochList () {
+	document.getElementById ('container_poch_list').innerHTML=''
+	let storedArray = JSON.parse(sessionStorage.getItem("books"))
+
+		storedArray.map(book => {
+			let bookName = book.Title
+			let id = book.Id
+			let author = book.Author
+			let description = book.Description
+			let image = book.Image
+			displayBookPoshListDiv(bookName, id, author, description, image)
+		})				
+}
+
+// Save book
+function saveBook(Id, Title, Author, Description, Img){
+		let storedArray = JSON.parse(sessionStorage.getItem("books"))
+		if (storedArray.some(item => item.Id === Id)) {
+			alert("Vous ne pouvez pas ajouter deux fois le même livre.")
+		} else {
+			let item =  {
+				Title: Title,
+				Id: Id,
+				Author: Author,
+				Description: Description,
+				Image: Img
+			}
+
+			storedArray.push(item)
+			sessionStorage.setItem("books", JSON.stringify(storedArray))
+			displayBookPochList()
+		}
+}
+
+
+// Delete book
+function deleteBook(Id){
+		let storedArray = JSON.parse(sessionStorage.getItem("books"));
+
+		if (storedArray.some(item => item.Id === Id)) {
+			const newArr = storedArray.filter(object => {
+				return object.Id !== Id
+			  })
+
+			  storedArray = newArr
+			  sessionStorage.setItem("books", JSON.stringify(storedArray))
+			  displayBookPochList()
+		}
+}
+
+// Display save book on window load
+function init(){
+	if (sessionStorage.getItem("books")) {
+		displayBookPochList()
 	} else {
-		sessionStorage.setItem(title, id)
+		sessionStorage.setItem("books",  JSON.stringify(storedArray))
 	}
 }
+
+init()
