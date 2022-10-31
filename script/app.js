@@ -7,6 +7,7 @@ const hr = document.getElementsByTagName('hr')[0]
 const content = document.getElementById('content')
 const storedArray = []
 
+// Define class
 hr.className = 'line'
 
 // Create btn_add
@@ -17,49 +18,50 @@ myBooks.insertBefore(btn_add, hr)
 btn_add.addEventListener('click', btn_add_click)
 
 // Create div hidden by default
-const div_form = document.createElement('div')
-div_form.setAttribute('id', 'div_form')
-div_form.style.display = 'none'
+const search_div = document.createElement('div')
+search_div.setAttribute('id', 'search_div')
+search_div.style.display = 'none'
 
 // Title input and label
 const label_title = document.createElement('label')
 label_title.innerText = 'Titre du livre'
 const input_title = document.createElement('input')
 input_title.type = 'text'
-div_form.append(label_title)
-div_form.append(input_title)
+search_div.append(label_title)
+search_div.append(input_title)
 
 // Author input and label
 const label_author = document.createElement('label')
 label_author.innerText = 'Auteur'
 const input_author = document.createElement('input')
 input_author.type = 'text'
-div_form.append(label_author)
-div_form.append(input_author)
+search_div.append(label_author)
+search_div.append(input_author)
 
 // Create btn_search
 const btn_search = document.createElement('button')
 btn_search.innerText = 'Rechercher'
 btn_search.id = "btn_search"
-div_form.append(btn_search)
+search_div.append(btn_search)
 
 // Create btn_cancel
 const btn_cancel = document.createElement('button')
 btn_cancel.innerText = 'Annuler'
 btn_cancel.id = "btn_cancel"
-div_form.append(btn_cancel)
+search_div.append(btn_cancel)
 // Return in first page on click
 btn_cancel.addEventListener('click', function (btn_cancel_click) {window.location = "../index.html"})
 
-// Display div_form on click
+// Display search_div on click
 function btn_add_click() {
-	if (div_form.style.display == 'none') {
-		div_form.style.display = 'flex'
+	if (search_div.style.display == 'none') {
+		search_div.style.display = 'flex'
+		btn_add.display = 'none'
 	}
 }
 
-// Insert div_form before content
-myBooks.insertBefore(div_form, content)
+// Insert search_div before content
+myBooks.insertBefore(search_div, content)
 
 // Retrieve information from the API
 btn_search.addEventListener('click', function (e) {
@@ -70,7 +72,7 @@ btn_search.addEventListener('click', function (e) {
 		const result = document.createElement('h2')
 		result.className = 'result'
 		result.innerText = 'Résultats de recherche'
-		div_form.appendChild(result)
+		search_div.appendChild(result)
 
 		let title = input_title.value
 		let author = input_author.value
@@ -104,7 +106,7 @@ btn_search.addEventListener('click', function (e) {
 // Result container
 const container_result_search = document.createElement('div')
 container_result_search.id = 'container_result_search'
-div_form.after(container_result_search)
+search_div.after(container_result_search)
 
 // Display search result
 function displayBook(Title, Id, Author, Description, Image) {
