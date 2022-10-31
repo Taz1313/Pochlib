@@ -5,7 +5,7 @@ const h1 = document.getElementsByClassName('title')[0]
 const h2 = document.getElementsByClassName('h2')[0]
 const hr = document.getElementsByTagName('hr')[0]
 const content = document.getElementById('content')
-let storedArray = []
+const storedArray = []
 
 // Create btn_add
 const btn_add = document.createElement('button')
@@ -47,7 +47,7 @@ btn_cancel.innerText = 'Annuler'
 btn_cancel.id = "btn_cancel"
 div_form.append(btn_cancel)
 // Return in first page on click
-btn_cancel.addEventListener('click', function (btn_cancel_click) {window.location = "../Pochlib/index.html"})
+btn_cancel.addEventListener('click', function (btn_cancel_click) {window.location = "../index.html"})
 
 // Display div_form on click
 function btn_add_click() {
@@ -64,6 +64,8 @@ btn_search.addEventListener('click', function (e) {
 	e.preventDefault();
 	try {
 	if (input_title.value != 0 && input_author.value != 0) {
+
+		
 
 		const result = document.createElement('h2')
 		result.className = 'result'
@@ -95,7 +97,7 @@ btn_search.addEventListener('click', function (e) {
 		alert("Veuillez renseigner tous les champs")
 	}
 	} catch (error){
-		console.error("erreur :" + error);
+		console.error("Erreur :" + error);
 	}
 })
 
@@ -203,7 +205,7 @@ function displayBookPoshListDiv(Title, Id, Author, Description, Image) {
 // Display book on poch'list
 function displayBookPochList () {
 	document.getElementById ('container_poch_list').innerHTML=''
-	let storedArray = JSON.parse(sessionStorage.getItem("books"))
+	let storedArray = JSON.parse(sessionStorage.getItem('books'))
 
 		storedArray.map(book => {
 			let bookName = book.Title
@@ -217,9 +219,9 @@ function displayBookPochList () {
 
 // Save book
 function saveBook(Id, Title, Author, Description, Img){
-	let storedArray = JSON.parse(sessionStorage.getItem("books"))
+	let storedArray = JSON.parse(sessionStorage.getItem('books'))
 	if (storedArray.some(item => item.Id === Id)) {
-		alert("Vous ne pouvez pas ajouter deux fois le même livre.")
+		alert('Vous ne pouvez pas ajouter deux fois le même livre.')
 	} else {
 		let item =  {
 			Title: Title,
@@ -237,7 +239,7 @@ function saveBook(Id, Title, Author, Description, Img){
 
 
 // Delete book
-function deleteBook(Id){
+function deleteBook(Id) {
 		let storedArray = JSON.parse(sessionStorage.getItem("books"));
 
 		if (storedArray.some(item => item.Id === Id)) {
@@ -252,7 +254,7 @@ function deleteBook(Id){
 }
 
 // Display save book on window load
-function init(){
+function init() {
 	if (sessionStorage.getItem("books")) {
 		displayBookPochList()
 	} else {
