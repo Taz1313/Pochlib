@@ -7,6 +7,8 @@ const hr = document.getElementsByTagName('hr')[0]
 const content = document.getElementById('content')
 const storedArray = []
 
+hr.className = 'line'
+
 // Create btn_add
 const btn_add = document.createElement('button')
 btn_add.innerText = 'Ajouter un livre'
@@ -64,8 +66,6 @@ btn_search.addEventListener('click', function (e) {
 	e.preventDefault();
 	try {
 	if (input_title.value != 0 && input_author.value != 0) {
-
-		
 
 		const result = document.createElement('h2')
 		result.className = 'result'
@@ -223,6 +223,7 @@ function saveBook(Id, Title, Author, Description, Img){
 	if (storedArray.some(item => item.Id === Id)) {
 		alert('Vous ne pouvez pas ajouter deux fois le même livre.')
 	} else {
+
 		let item =  {
 			Title: Title,
 			Id: Id,
@@ -230,10 +231,11 @@ function saveBook(Id, Title, Author, Description, Img){
 			Description: Description,
 			Image: Img
 		}
-
-		storedArray.push(item)
-		sessionStorage.setItem("books", JSON.stringify(storedArray))
-		displayBookPochList()
+		if (item.Title !== undefined) {
+			storedArray.push(item)
+			sessionStorage.setItem("books", JSON.stringify(storedArray))
+			displayBookPochList()
+		}
 	}
 }
 
