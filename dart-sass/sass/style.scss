@@ -1,0 +1,149 @@
+@import 'variables.scss';
+
+// Main design
+body {
+    font-family: 'Crete Round', serif;
+    background-color: $background;
+
+  .title {
+    display: none;
+  }
+  
+  #logo {
+    width: 20%;
+    border-radius: 6px;
+    box-shadow: 10px 5px 5px $greepoch;
+  }
+  
+  #myBooks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 9% 3%;
+  }
+  
+  #btn_add, #btn_search {
+    background-color: $greepoch;
+    padding: 8px;
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid black;
+    &:hover {
+        box-shadow: 10px 5px 5px $greepoch;
+    }
+  }
+  
+  #btn_search, #btn_cancel {
+    width: 40%;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  #btn_cancel {
+    background-color: $cancel;
+
+    &:hover{
+        box-shadow: 10px 5px 5px $cancel;
+    }
+  }
+
+  #div_form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    padding: 20px;
+    margin-bottom: 10px;
+  }
+  
+  #div_form * {
+    margin-bottom: 10px;
+  }
+  
+  #div_form input {
+    height: 25px;
+    outline-width: 0;
+    font-size: 16px;
+  }
+  
+}
+
+// Elements style
+.result {
+    text-align: center;
+}
+
+.book{
+    background-color: $bookBackground;
+    border : solid 2px black;
+    border-radius: 3px;
+    height: 400px;
+    width: 300px;
+    margin : 1%;
+
+    &:hover {
+        box-shadow: 10px 5px 5px $greepoch;
+    }
+
+    .bookTitle {
+        font-size: 16px;
+        margin-top : -8px;
+        margin-left: 6px;
+    }
+    
+    .id {
+        font-size: 16px;
+        margin-left: 6px;
+        margin-top : -12px;
+    }
+    
+    .author {
+        font-size: 16px;
+        margin-left: 6px;
+        margin-top : -12px;
+    }
+    
+    .description {
+        margin-left: 6px;
+        margin-right: 6px;
+        text-align: justify;
+    }
+
+    .image {
+        position: relative;
+        width: 90px;
+        height: 130px;
+        left: 35%;
+    }
+    
+    .icon {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        left: 265px;
+    }
+}
+
+#content {
+    text-align: center;
+}
+  
+#container_result_search {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+  
+#container_poch_list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
