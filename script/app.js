@@ -47,7 +47,7 @@ btn_cancel.innerText = 'Annuler'
 btn_cancel.id = 'btn_cancel'
 search_div.append(btn_cancel)
 // Return in first page on click
-btn_cancel.addEventListener('click', function (btn_cancel_click) {window.location = "../index.html"})
+btn_cancel.addEventListener('click', function (btn_cancel_click) {window.location = "../Pochlib-main/index.html"})
 
 // Define class & id
 hr.className = 'line'
