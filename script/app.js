@@ -7,20 +7,17 @@ const hr = document.getElementsByTagName('hr')[0]
 const content = document.getElementById('content')
 const storedArray = []
 
-// Define class
-hr.className = 'line'
+// Create div hidden by default
+const search_div = document.createElement('div')
+search_div.setAttribute('id', 'search_div')
+search_div.style.display = 'none'
 
 // Create btn_add
 const btn_add = document.createElement('button')
 btn_add.innerText = 'Ajouter un livre'
 btn_add.id = 'btn_add'
-myBooks.insertBefore(btn_add, hr)
+h2.after(btn_add)
 btn_add.addEventListener('click', btn_add_click)
-
-// Create div hidden by default
-const search_div = document.createElement('div')
-search_div.setAttribute('id', 'search_div')
-search_div.style.display = 'none'
 
 // Title input and label
 const label_title = document.createElement('label')
@@ -41,23 +38,26 @@ search_div.append(input_author)
 // Create btn_search
 const btn_search = document.createElement('button')
 btn_search.innerText = 'Rechercher'
-btn_search.id = "btn_search"
+btn_search.id = 'btn_search'
 search_div.append(btn_search)
 
 // Create btn_cancel
 const btn_cancel = document.createElement('button')
 btn_cancel.innerText = 'Annuler'
-btn_cancel.id = "btn_cancel"
+btn_cancel.id = 'btn_cancel'
 search_div.append(btn_cancel)
 // Return in first page on click
 btn_cancel.addEventListener('click', function (btn_cancel_click) {window.location = "../index.html"})
+
+// Define class & id
+hr.className = 'line'
+content.before(hr)
 
 // Display search_div on click
 function btn_add_click() {
 	if (search_div.style.display == 'none') {
 		search_div.style.display = 'flex'
-		btn_add.display = 'none'
-	}
+	} 
 }
 
 // Insert search_div before content

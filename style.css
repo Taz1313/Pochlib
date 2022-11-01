@@ -59,7 +59,7 @@ body #search_div input {
 }
 body .line {
   border: 0.5px solid grey;
-  width: 100%;
+  width: 90%;
   margin-top: 25px;
 }
 
@@ -109,6 +109,7 @@ body .line {
   width: 30px;
   height: 30px;
   left: 265px;
+  margin-top: 4px;
 }
 
 #content {
@@ -129,6 +130,70 @@ body .line {
   width: 100%;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (max-width: 480px) {
+  body {
+    background-color: darkgray;
+  }
+  body #logo {
+    height: 175px;
+    width: 175px;
+  }
+  body .book {
+    background-color: darkgray;
+  }
+  body .book .title {
+    font-size: 16px;
+  }
+  body .book .author {
+    font-size: 16px;
+  }
+  body .book .id {
+    font-size: 16px;
+  }
+  body .book .description {
+    font-size: 16px;
+  }
+  body .book .icon {
+    left: 255px;
+  }
+}
+@media screen and (max-width: 350px) {
+  body {
+    background-color: darkgray;
+  }
+  body #btn_search {
+    width: 60%;
+  }
+  body #logo {
+    height: 45%;
+    width: 45%;
+  }
+  body .book {
+    background-color: darkgray;
+  }
+  body .book .title {
+    font-size: 12px;
+  }
+  body .book .author {
+    font-size: 12px;
+  }
+  body .book .id {
+    font-size: 12px;
+  }
+  body .book .description {
+    font-size: 12px;
+  }
+  body .book .image {
+    position: relative;
+    width: 60px;
+    height: 80px;
+    left: 40%;
+  }
+  body .book .icon {
+    left: 85%;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
