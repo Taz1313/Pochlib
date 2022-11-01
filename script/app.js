@@ -1,10 +1,7 @@
-// Variables declaration
+// Constants
 const myBooks = document.getElementById('myBooks')
-const img = document.getElementsByTagName('img')[0]
-const h1 = document.getElementsByClassName('title')[0]
 const h2 = document.getElementsByClassName('h2')[0]
 const hr = document.getElementsByTagName('hr')[0]
-const content = document.getElementById('content')
 const storedArray = []
 
 // Create div hidden by default
@@ -51,12 +48,13 @@ btn_cancel.addEventListener('click', function (btn_cancel_click) {window.locatio
 
 // Define class & id
 hr.className = 'line'
-content.before(hr)
+
 
 // Display search_div on click
 function btn_add_click() {
 	if (search_div.style.display == 'none') {
 		search_div.style.display = 'flex'
+		btn_add.style.display = 'none'
 	} 
 }
 
