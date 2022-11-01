@@ -74,6 +74,8 @@ body .line {
   height: 450px;
   width: 300px;
   margin: 1%;
+  display: flex;
+  flex-direction: column;
 }
 .book:hover {
   box-shadow: 10px 5px 5px #28D2BF;
@@ -97,12 +99,14 @@ body .line {
   margin-left: 6px;
   margin-right: 6px;
   text-align: justify;
+  flex-grow: 1;
 }
 .book .image {
   position: relative;
   width: 90px;
   height: 130px;
   left: 35%;
+  margin-bottom: 20px;
 }
 .book .icon {
   position: relative;
@@ -143,7 +147,7 @@ body .line {
   body .book {
     background-color: darkgray;
   }
-  body .book .title {
+  body .book .bookTitle {
     font-size: 16px;
   }
   body .book .author {

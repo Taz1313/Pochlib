@@ -92,6 +92,8 @@ body {
     height: 450px;
     width: 300px;
     margin : 1%;
+    display: flex;
+    flex-direction: column;
 
     &:hover {
         box-shadow: 10px 5px 5px $greepoch;
@@ -119,6 +121,7 @@ body {
         margin-left: 6px;
         margin-right: 6px;
         text-align: justify;
+        flex-grow: 1;
     }
 
     .image {
@@ -126,6 +129,8 @@ body {
         width: 90px;
         height: 130px;
         left: 35%;
+        margin-bottom: 20px;
+
     }
     
     .icon {
@@ -172,7 +177,7 @@ body {
     .book {
       background-color: darkgray;
 
-      .title {
+      .bookTitle {
         font-size: 16px;
       }
 
@@ -234,7 +239,6 @@ body {
         width: 60px;
         height: 80px;
         left: 40%;
-
     }
 
       .icon {
