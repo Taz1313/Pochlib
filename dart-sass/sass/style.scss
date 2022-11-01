@@ -1,6 +1,7 @@
 @import 'variables.scss';
 
 // Main design
+
 body {
     font-family: 'Crete Round', serif;
     background-color: $background;
@@ -72,14 +73,14 @@ body {
 
   .line {
     border: 0.5px solid grey;
-    width: 100%;
+    width: 90%;
     margin-top: 25px;
   }
 
-  
 }
 
 // Elements style
+
 .result {
     text-align: center;
 }
@@ -132,6 +133,7 @@ body {
         width: 30px;
         height: 30px;
         left: 265px;
+        margin-top: 4px;
     }
 }
 
@@ -154,3 +156,92 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+// Media query
+
+@media screen and (max-width: $mobile) {
+  body {
+    background-color: darkgray;
+
+    #logo {
+      height: 175px;
+      width: 175px;
+    }
+
+
+    .book {
+      background-color: darkgray;
+
+      .title {
+        font-size: 16px;
+      }
+
+      .author {
+        font-size: 16px;
+      }
+
+      .id {
+        font-size: 16px;
+      }
+
+      .description {
+        font-size: 16px;
+      }
+
+      .icon {
+      left: 255px;
+      
+      }
+    }
+  }
+}
+
+@media screen and (max-width : $small) {
+  body {
+    background-color: darkgray;
+
+    #btn_search {
+      width: 60%;
+    }
+
+    #logo {
+      height: 45%;
+      width: 45%;
+    }
+
+
+    .book {
+      background-color: darkgray;
+
+      .title {
+        font-size: 12px;
+      }
+
+      .author {
+        font-size: 12px;
+      }
+
+      .id {
+        font-size: 12px;
+      }
+
+      .description {
+        font-size: 12px;
+      }
+
+      .image {
+        position: relative;
+        width: 60px;
+        height: 80px;
+        left: 40%;
+
+    }
+
+      .icon {
+      left: 85%;      
+      }
+    }
+  }
+}
+
+
